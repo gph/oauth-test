@@ -18,6 +18,10 @@ public class WebOAuthTest {
 	public static void main(String[] args) throws InterruptedException, IOException {
 		// TODO Auto-generated method stub
 		
+		
+		// GET AUTHORIZATION CODE
+        // DOESNT WORK GOOGLE BLOCK AUTOMATION LOGIN
+        /*
         // username and pass
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Username: ");
@@ -25,9 +29,7 @@ public class WebOAuthTest {
         System.out.println("Password: ");
         String password = reader.readLine();
         reader.close();
-		
-		// GET AUTHORIZATION CODE
-        // DOESNT WORK GOOGLE BLOCK AUTOMATION LOGIN
+        
 	    System.setProperty("webdriver.chrome.driver","c:\\chromedriver.exe"); 
 		WebDriver driver = new ChromeDriver();
 		driver.get("https://accounts.google.com/o/oauth2/v2/auth/identifier?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&auth_url=https%3A%2F%2Faccounts.google.com%2Fo%2Foauth2%2Fv2%2Fauth&client_id=692183103107-p0m7ent2hk7suguv4vq22hjcfhcr43pj.apps.googleusercontent.com&response_type=code&redirect_uri=https%3A%2F%2Frahulshettyacademy.com%2FgetCourse.php&state=Kappa123&flowName=GeneralOAuthFlow");
@@ -37,11 +39,15 @@ public class WebOAuthTest {
 		driver.findElement(By.cssSelector("input[type='password']")).sendKeys(password);
 		driver.findElement(By.cssSelector("input[type='password']")).sendKeys(Keys.ENTER);
 		Thread.sleep(3000);
-		
 		String url = driver.getCurrentUrl();
-		
 		String code = url.split("code=")[1].split("&")[0];
+        */
 		
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Auth Code: ");
+        String code = reader.readLine();
+        reader.close();
+        
 		// GET ACCESS TOKEN
 		Map<String, String> parameters = new HashMap<String, String>();
 		parameters.put("code", code);
@@ -51,9 +57,9 @@ public class WebOAuthTest {
 		parameters.put("redirect_uri", "https://rahulshettyacademy.com/getCourse.php");
 		
 		String accessTokenResponse = given().urlEncodingEnabled(false).queryParams(parameters)
-		.when().log().all()
+		.when()
 		.post("https://www.googleapis.com/oauth2/v4/token")
-		.then().assertThat().statusCode(200).extract().response().asString();
+		.then().log().all().assertThat().statusCode(200).extract().response().asString();
 		
 		System.out.println(accessTokenResponse);
 		
@@ -62,9 +68,9 @@ public class WebOAuthTest {
 		
 		// REQUEST
 		String response = given().queryParam("access_token", accessToken)
-		.when().log().all()
+		.when()
 		.get("https://rahulshettyacademy.com/getCourse.php")
-		.then().assertThat().statusCode(200).extract().response().asString();
+		.then().log().all().assertThat().statusCode(200).extract().response().asString();
 		
 		System.out.println(response);
 	}
