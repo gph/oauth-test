@@ -6,11 +6,6 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-
 import io.restassured.path.json.JsonPath;
 
 public class WebOAuthTest {
@@ -20,7 +15,7 @@ public class WebOAuthTest {
 		
 		
 		// GET AUTHORIZATION CODE
-        // DOESNT WORK GOOGLE BLOCK AUTOMATION LOGIN
+        // CANT USE AUTH2.0 TO LOGIN IN GOOGLE DOMAIN 
         /*
         // username and pass
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));

@@ -1,7 +1,5 @@
 package pojo;
 
-import java.util.List;
-
 public class Data {
 	
 	private String url;
