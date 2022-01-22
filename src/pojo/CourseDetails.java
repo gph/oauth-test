@@ -1,14 +1,9 @@
 package pojo;
 
-public class CourseDescription {
+public class CourseDetails {
 	private String courseTitle;
 	private String price;
-	
-	public CourseDescription(String courseTitle, String price) {
-		this.courseTitle = courseTitle;
-		this.price = price;
-	}
-	
+		
 	public String getCourseTitle() {
 		return courseTitle;
 	}

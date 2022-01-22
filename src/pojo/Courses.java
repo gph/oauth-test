@@ -1,29 +1,27 @@
 package pojo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Courses {
-	private List<CourseDescription> webAutomation = new ArrayList<CourseDescription>();
-	private List<CourseDescription> api = new ArrayList<CourseDescription>();
-	private List<CourseDescription> mobile = new ArrayList<CourseDescription>();
-	
-	public List<CourseDescription> getWebAutomation() {
-		return webAutomation;
+	private List<CourseDetails> CourseDetails;
+	private List<CourseDetails> api;
+	private List<CourseDetails> mobile;
+	public List<CourseDetails> getCourse() {
+		return CourseDetails;
 	}
-	public void setWebAutomation(List<CourseDescription> webAutomation) {
-		this.webAutomation = webAutomation;
+	public void setCourse(List<CourseDetails> courseDetails) {
+		CourseDetails = courseDetails;
 	}
-	public List<CourseDescription> getApi() {
+	public List<CourseDetails> getApi() {
 		return api;
 	}
-	public void setApi(List<CourseDescription> api) {
+	public void setApi(List<CourseDetails> api) {
 		this.api = api;
 	}
-	public List<CourseDescription> getMobile() {
+	public List<CourseDetails> getMobile() {
 		return mobile;
 	}
-	public void setMobile(List<CourseDescription> mobile) {
+	public void setMobile(List<CourseDetails> mobile) {
 		this.mobile = mobile;
 	}
 }

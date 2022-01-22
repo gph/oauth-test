@@ -6,7 +6,9 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.restassured.parsing.Parser;
 import io.restassured.path.json.JsonPath;
+import pojo.Academy;
 
 public class WebOAuthTest {
 	
@@ -62,12 +64,11 @@ public class WebOAuthTest {
 		String accessToken = js.getString("access_token");
 		
 		// REQUEST
-		String response = given().queryParam("access_token", accessToken)
+		Academy academyObj = given().queryParam("access_token", accessToken).expect().defaultParser(Parser.JSON)
 		.when()
-		.get("https://rahulshettyacademy.com/getCourse.php")
-		.then().log().all().assertThat().statusCode(200).extract().response().asString();
+		.get("https://rahulshettyacademy.com/getCourse.php").as(Academy.class);
 		
-		System.out.println(response);
+		System.out.println(academyObj.getLinkedIn());
 	}
 
 }

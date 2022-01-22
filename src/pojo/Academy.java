@@ -1,6 +1,6 @@
 package pojo;
 
-public class Data {
+public class Academy {
 	
 	private String url;
 	private String services;
