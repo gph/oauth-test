@@ -3,14 +3,15 @@ package pojo;
 import java.util.List;
 
 public class Courses {
-	private List<CourseDetails> CourseDetails;
+	private List<CourseDetails> webAutomation;
 	private List<CourseDetails> api;
 	private List<CourseDetails> mobile;
-	public List<CourseDetails> getCourse() {
-		return CourseDetails;
+	
+	public List<CourseDetails> getWebAutomation() {
+		return webAutomation;
 	}
-	public void setCourse(List<CourseDetails> courseDetails) {
-		CourseDetails = courseDetails;
+	public void setWebAutomation(List<CourseDetails> webAutomation) {
+		this.webAutomation = webAutomation;
 	}
 	public List<CourseDetails> getApi() {
 		return api;

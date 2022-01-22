@@ -1,23 +1,32 @@
 import static io.restassured.RestAssured.given;
+import static org.testng.Assert.assertTrue;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
 
 import io.restassured.parsing.Parser;
 import io.restassured.path.json.JsonPath;
+import org.junit.Assert;
+
 import pojo.Academy;
+import pojo.CourseDetails;
 
 public class WebOAuthTest {
 	
 	public static void main(String[] args) throws InterruptedException, IOException {
 		// TODO Auto-generated method stub
 		
-		
+		String[] webAutomationCourses = {"Selenium Webdriver Java", "Cypress", "Protractor"};
+
 		// GET AUTHORIZATION CODE
-        // CANT USE AUTH2.0 TO LOGIN IN GOOGLE DOMAIN 
+        // CANT USE AUTOMATION WITH OAUTH2.0 @ GOOGLE 
         /*
         // username and pass
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -56,7 +65,8 @@ public class WebOAuthTest {
 		String accessTokenResponse = given().urlEncodingEnabled(false).queryParams(parameters)
 		.when()
 		.post("https://www.googleapis.com/oauth2/v4/token")
-		.then().log().all().assertThat().statusCode(200).extract().response().asString();
+		//.then().log().all().assertThat().statusCode(200).extract().response().asString(); // log response
+		.then().assertThat().statusCode(200).extract().response().asString();
 		
 		System.out.println(accessTokenResponse);
 		
@@ -68,7 +78,26 @@ public class WebOAuthTest {
 		.when()
 		.get("https://rahulshettyacademy.com/getCourse.php").as(Academy.class);
 		
-		System.out.println(academyObj.getLinkedIn());
+		
+		List<CourseDetails> api = academyObj.getCourses().getApi();
+		for (int i = 0; i < api.size(); i++) {
+			if(api.get(i).getCourseTitle().equalsIgnoreCase("SoapUI Webservices testing"))
+			{
+				System.out.println(api.get(i).getPrice());
+			}
+		}
+		
+		List<String> tempList = new ArrayList<String>();
+		
+		List<CourseDetails> webAutomation = academyObj.getCourses().getWebAutomation();
+		for (CourseDetails course : webAutomation) {
+			System.out.println("Title: " + course.getCourseTitle());
+			tempList.add(course.getCourseTitle());
+			System.out.println("Price: " + course.getPrice());
+		}
+		
+		List<String> expectedList = Arrays.asList(webAutomationCourses);
+		
+		Assert.assertTrue(tempList.equals(expectedList));
 	}
-
 }
